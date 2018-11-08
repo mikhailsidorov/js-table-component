@@ -7,3 +7,107 @@ html {
 *::before {
   box-sizing: inherit;
 }
+
+.table-component__table {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(100px, auto));
+  border-bottom: 2px solid #000000;
+}
+
+.table-component__table * {
+  padding: 0.7em;
+}
+
+.table-component__table__header-item {
+  font-weight: bold;
+  border-bottom: 2px solid;
+  position: relative;
+}
+
+.table-component__table__header-item::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  border: 5px solid transparent;
+  border-top: 8px solid #dbdbdb;
+}
+
+.table-component__table__header-item::before {
+  content: "";
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  border: 5px solid transparent;
+  border-bottom: 8px solid #dbdbdb;
+}
+
+.table-component__table__cell {
+  border-bottom: 2px solid #e0e0e0;
+  background-color: #ffffff;
+}
+
+.table-component__table__odd-row {
+  background-color: #f9f9f9;
+}
+
+.table-component__table__cell__sorted-column {
+  background-color: #f3f3f3;
+}
+
+.table-component__table__odd-row__sorted-column {
+  background: #ececec;
+}
+
+.table-component__search {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-component__search > * {
+  box-sizing: border-box;
+}
+
+.table-component__search__label {
+  padding-right: 0.5em;
+}
+
+.table-component__search__input {
+  height: 2em;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #c4c4c4;
+  width: 30em;
+}
+
+.table-component__search__button {
+  background-color: #e8e8e8;
+  height: 2em;
+  border: 1px solid #c4c4c4;
+}
+
+.table-component__pagination {
+  margin-top: 1em;
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-component__pagination__item-previous,
+.table-component__pagination__item-next,
+.table-component__pagination__item {
+  padding: 1em 1.3em;
+  /* border: 1px solid; */
+}
+
+.table-component__pagination__item-previous:hover,
+.table-component__pagination__item-next:hover,
+.table-component__pagination__item:hover {
+  cursor: pointer;
+}
+
+.table-component__pagination__item-active {
+  background: linear-gradient(160deg, #ffffff, #c4c4c4);
+  border: 2px solid #b1b1b1;
+  border-radius: 3px;
+}
