@@ -1,7 +1,7 @@
 function Table(options) {
   let self = this;
   let currentPage = options.currentPage;
-  let totalPages = getTotalPages();
+  let currentRowsData = options.items;
   let sortedColNum = null;
   let sortingType = 'asc';
   let searchValue = '';
@@ -22,9 +22,9 @@ function Table(options) {
     render();
   }
 
-  function getTotalPages() {
-    let totalPages = Math.floor(options.items.length / options.itemsPerPage);
-    if (options.items.length % options.itemsPerPage > 0) {
+  function getTotalPages(rowsData) {
+    let totalPages = Math.floor(rowsData.length / options.itemsPerPage);
+    if (rowsData.length % options.itemsPerPage > 0) {
       totalPages += 1;
     }
     return totalPages;
@@ -201,9 +201,8 @@ function Table(options) {
       odd = !odd;
     }
 
-    let rowsData = [];
     if (searchValue !== '') {
-      rowsData = options.items.filter(function(rowData) {
+      currentRowsData = options.items.filter(function(rowData) {
         for (let rowItem of rowData) {
           if (
             rowItem
@@ -217,13 +216,13 @@ function Table(options) {
         return false;
       });
     } else {
-      rowsData = options.items || [];
+      currentRowsData = options.items || [];
     }
 
     let odd = true;
     const first = (currentPage - 1) * options.itemsPerPage;
     const last = currentPage * options.itemsPerPage - 1;
-    const currentRange = getRange(rowsData, first, last);
+    const currentRange = getRange(currentRowsData, first, last);
     currentRange.forEach(function(rowData) {
       renderRow(rowData);
     });
@@ -255,6 +254,7 @@ function Table(options) {
     );
     controls.forEach(button => element.appendChild(button));
 
+    let totalPages = getTotalPages(currentRowsData);
     pagesButtons = createPagesButtons(totalPages);
     pagesButtons.forEach(button => {
       element.insertBefore(button, controls[controls.length - 1]);
@@ -262,7 +262,7 @@ function Table(options) {
 
     return element;
 
-    function createPagesButtons() {
+    function createPagesButtons(totalPages) {
       let pagesButtons = [];
       for (let i = 1; i <= totalPages; i++) {
         pagesButtons.push(
